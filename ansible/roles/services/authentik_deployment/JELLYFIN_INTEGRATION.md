@@ -59,7 +59,8 @@ A comprehensive guide to **_integrating Authentik LDAP_** with a **_Jellyfin_** 
       - server
   ```
 
-
+> [!TIP]
+> If deployed successful navigate back to **Applications** > **Outposts** > **Health and Version** in Authentik. Check the **_Health and Version_** status; it should update to show that the outpost is actively connected, displaying a **_recent timestamp_** such as `Last seen: 5 seconds ago (12:43:11 PM)`.
 
 ## 2. Jellyfin Plugin Configuration
 
