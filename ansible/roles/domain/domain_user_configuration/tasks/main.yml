@@ -3,7 +3,7 @@
   ansible.builtin.include_vars:
     file: ../../../variables/os_var/windows_var.yml
     
-- name: Domain Administrator Configuration
+- name: Domain Administrator Account Configuration
   microsoft.ad.user:
     name: "{{ item.name }}"
     identity: "{{ item.upn | default(omit) }}"
@@ -20,9 +20,9 @@
       add:
         - "{{ item.group }}"
     description: "{{ item.description | default(omit) }}"
-  loop: "{{ domain_admin_list }}"
+  loop: "{{ domain_admin_account_list }}"
 
-- name: Domain User Configuration
+- name: Domain User Account Configuration
   microsoft.ad.user:
     name: "{{ item.name }}"
     identity: "{{ item.upn }}"
@@ -51,4 +51,4 @@
     country: "{{ item.country | default(omit) }}"
     # Custom attributes
     attributes: "{{ item.attributes | default(omit) }}"
-  loop: "{{ domain_user_list }}"
+  loop: "{{ domain_user_account_list }}"
