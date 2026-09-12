@@ -17,6 +17,8 @@ A comprehensive guide to **_integrating Authentik LDAP_** with a **_Jellyfin_** 
   |   **Base DN**   | `DC=khangvum,DC=lab`                                  |
   | **Certificate** | `authentik Self-signed Certificate`                   |
 
+- 
+
 ### Application Setup
 
 - Navigate to **Applications** > **Applications** and create a **_New Application_**:
@@ -37,6 +39,27 @@ A comprehensive guide to **_integrating Authentik LDAP_** with a **_Jellyfin_** 
   | **Outpost Name** | `Jellyfin LDAP Outpost` |
   |     **Type**     | `LDAP`                  |
   | **Applications** | Select `Jellyfin`       |
+
+- After creating the outpost, navigate to **Directory** > **Tokens and App passwords**.
+- Locate the newly created **_Jellyfin LDAP Outpost_** (_e.g.,_ `ak-outpost-...-api`), and **_copy_** the **_outpost token_**.
+- Add the **_LDAP outpost container_** to the `docker-compose.yml` file using the outpost token retrieved from Authentik:
+
+  ```yaml
+  authentik_ldap:
+    image: ghcr.io/goauthentik/ldap:2026.8.2
+    restart: unless-stopped
+    ports:
+      - "389:3389"
+      - "636:6636"
+    environment:
+      AUTHENTIK_HOST: https://authentik.khangvum.com
+      AUTHENTIK_INSECURE: "false"
+      AUTHENTIK_TOKEN: "{{ authentik_outpost_token }}"
+    depends_on:
+      - server
+  ```
+
+
 
 ## 2. Jellyfin Plugin Configuration
 
