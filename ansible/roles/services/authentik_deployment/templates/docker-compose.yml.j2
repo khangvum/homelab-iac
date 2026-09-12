@@ -76,3 +76,16 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+
+  authentik_ldap:
+    image: ghcr.io/goauthentik/ldap:{{ authentik_version }}
+    restart: unless-stopped
+    ports:
+      - "389:3389"
+      - "636:6636"
+    environment:
+      AUTHENTIK_HOST: https://authentik.{{ public_domain_name }}
+      AUTHENTIK_INSECURE: "false"
+      AUTHENTIK_TOKEN: "{{ authentik_outpost_token }}"
+    depends_on:
+      - server
