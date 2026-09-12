@@ -1,34 +1,42 @@
 # Jellyfin-Authentik Integration Guide
 
-A comprehensive guide to **_integrating Authentik OIDC_** with a **_Jellyfin_** instance in a homelab environment.
+A comprehensive guide to **_integrating Authentik LDAP_** with a **_Jellyfin_** instance in a homelab environment.
 
 ## 1. Authentik Configuration
 
 ### Provider Setup
 
-- Navigate to **Applications** > **Providers** and create an **_OAuth2/OpenID Provider_**.
+- Navigate to **Applications** > **Providers** and create an **_LDAP Provider_**.
 - Fill out the details:
 
-  |           Field           | Setting                                                                   |
-  | :-----------------------: | ------------------------------------------------------------------------- |
-  |         **Name**          | `Jellyfin - OIDC`                                                         |
-  |  **Authorization Flow**   | `default-provider-authorization-explicit-consent (Authorize Application)` |
-  |      **Client Type**      | `Confidential`                                                            |
-  | **Redirect URIs/Origins** | `https://jellyfin.khangvum.com/sso/OID/redirect/authentik`                 |
-
-> [!IMPORTANT]
-> Copy your **_Client ID_** and **_Client Secret_**, which are needed for Jellyfin plugin configuration later.
+  |      Field      | Setting                                               |
+  | :-------------: | ----------------------------------------------------- |
+  |    **Name**     | `Jellyfin - LDAP`                                     |
+  |  **Bind Flow**  | `ldap-authentication-flow (LDAP Authentication Flow)` |
+  | **Unbind Flow** | `default-invalidation-flow (Logout)`                  |
+  |   **Base DN**   | `DC=khangvum,DC=lab`                                  |
+  | **Certificate** | `authentik Self-signed Certificate`                   |
 
 ### Application Setup
 
 - Navigate to **Applications** > **Applications** and create a **_New Application_**:
 - Fill out the details:
 
-  |     Field      | Setting                        |
-  | :------------: | ------------------------------ |
-  |    **Name**    | `Jellyfin`                     |
-  |  **Provider**  | Select `Jellyfin - OIDC`       |
-  | **Launch URL** | `https://jellyfin.khangvum.com` |
+  |    Field     | Setting                  |
+  | :----------: | ------------------------ |
+  |   **Name**   | `Jellyfin`               |
+  | **Provider** | Select `Jellyfin - LDAP` |
+
+### Outpost Setup
+
+- Navigate to **Applications** > **Outposts** and create a **_New Outpost_**:
+- Fill out the details:
+
+  |      Field       | Setting                 |
+  | :--------------: | ----------------------- |
+  | **Outpost Name** | `Jellyfin LDAP Outpost` |
+  |     **Type**     | `LDAP`                  |
+  | **Applications** | Select `Jellyfin`       |
 
 ## 2. Jellyfin Plugin Configuration
 
