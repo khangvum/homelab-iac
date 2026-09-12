@@ -1,6 +1,6 @@
 ---
 # Domain administrator configuration
-domain_admin_list:
+domain_admin_account_list:
   - name: Administrator
     path: "CN=Users,DC=khangvum,DC=lab"
     password: {{ PASSWORD }}
@@ -20,9 +20,9 @@ domain_admin_list:
     group: Domain Admins
     description: Khang Vu's system administrator account
 
-# Domain user configuration
+# Domain user accounts
 # - Country code: https://www.worlddata.info/countrycodes.php
-domain_user_list:
+domain_user_account_list:
   - name: Khang Vu
     firstname: Khang
     surname: Vu
