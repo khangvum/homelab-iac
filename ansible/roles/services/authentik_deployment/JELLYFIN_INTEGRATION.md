@@ -17,7 +17,7 @@ A comprehensive guide to **_integrating Authentik LDAP_** with a **_Jellyfin_** 
   |   **Base DN**   | `DC=khangvum,DC=lab`                                  |
   | **Certificate** | `authentik Self-signed Certificate`                   |
 
-- 
+-
 
 ### Application Setup
 
@@ -67,47 +67,34 @@ A comprehensive guide to **_integrating Authentik LDAP_** with a **_Jellyfin_** 
 ### Plugin Installation
 
 - Log in to Jellyfin instance as **_Administrator_**.
-- Navigate to **Dashboard** > **Plugins** > **Manage Repositories**.
-- Click **New Repository**, and fill out the details:
-
-  |        Field        | Value                                                                                      |
-  | :-----------------: | ------------------------------------------------------------------------------------------ |
-  | **Repository Name** | `SSO-Auth`                                                                                 |
-  | **Repository URL**  | `https://raw.githubusercontent.com/9p4/jellyfin-plugin-sso/manifest-release/manifest.json` |
-
-- Go back to **Plugins**, search for **_SSO-Auth_**, and click **_Install_**.
+- Navigate to **Dashboard** > **Plugins**.
+- Search for **_LDAP Authentication_** (**_LDAP-Auth_**), and click **_Install_**.
 
 > [!IMPORTANT]
 > **_Restart Jellyfin_** to initialize the plugin.
 
 ### Plugin Settings
 
-Once restarted, click on the **_SSO-Auth_** plugin icon in the installed plugins list to **_configure the connection_**:
+Once restarted, click on the **_LDAP-Auth_** plugin icon in the installed plugins list to **_configure the connection_**:
 
-|                     Field                     | Value                                                                                   |
-| :-------------------------------------------: | --------------------------------------------------------------------------------------- |
-|          **Name of OpenID Provider**          | `authentik`                                                                             |
-|              **OpenID Endpoint**              | `http://authentik.khangvum.lab/application/o/jellyfin/.well-known/openid-configuration` |
-|             **OpenID Client ID**              | (Paste the **_Client ID_** from Authentik)                                              |
-|           **OpenID Client Secret**            | (Paste the **_Client Secret_** from Authentik)                                          |
-|                  **Enabled**                  | `CHECKED`                                                                               |
-|      **Enable Authorization by Plugin**       | `CHECKED`                                                                               |
-| **Disable OpenID HTTPS Discovery (Insecure)** | `CHECKED`                                                                               |
+|               Field                | Value                                                    |
+| :--------------------------------: | -------------------------------------------------------- |
+|          **LDAP Server**           | (The **_Authentik Outpost's IP_** (_e.g.,_ `KVM-IAM01`)) |
+|           **LDAP Port**            | `636`                                                    |
+|          **Secure LDAP**           | `CHECKED`                                                |
+|   **Skip SSL/TLS Verification**    | `CHECKED`                                                |
+|         **LDAP Bind User**         | `cn=akadmin,ou=users,dc=khangvum,dc=lab`                 |
+|    **LDAP Bind User Password**     | (`akadmin`'s password)                                   |
+|   **LDAP Base DN for searches:**   | `dc=khangvum,dc=lab`                                     |
+|       **LDAP Search Filter**       | `(&(objectClass=user))`                                  |
+|     **LDAP Search Attributes**     | `sAMAccountName, cn, mail, displayName`                  |
+|       **LDAP Uid Attribute**       | `sAMAccountName`                                         |
+|    **LDAP Username Attribute**     | `sAMAccountName`                                         |
+|      **Enable User Creation**      | `CHECKED`                                                |
+| **Enable access to all libraries** | `CHECKED`                                                |
 
 > [!IMPORTANT]
 > **_Restart Jellyfin_** again after saving these settings for the changes to **_take effect_**.
-
-## 3. Login Branding
-
-To display the **_"Sign in with SSO"_** button, inject this HTML into the **_Login disclaimer_** (found in **Dashboard** > **Branding**):
-
-```html
-<form action="https://jellyfin.khangvum.com/sso/OID/start/authentik">
-  <button class="raised block emby-button button-submit">
-    Sign in with SSO
-  </button>
-</form>
-```
 
 ### References
 
