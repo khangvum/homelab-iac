@@ -1,8 +1,9 @@
 ---
 authentik_parent_dir: "/home/{{ ansible_user }}/docker/authentik"
-authentik_version: "2026.5.2"
+authentik_version: "2026.8.2"
 
 postgres_user: "{{ ansible_user }}"
 postgres_password: "{{ ansible_password }}"
 authentik_postgres_db: "authentik"
 authentik_secret_key: {{ AUTHENTIK_SECRET_KEY }}
+authentik_outpost_token: {{ AUTHENTIK_OUTPOST_TOKEN }}
