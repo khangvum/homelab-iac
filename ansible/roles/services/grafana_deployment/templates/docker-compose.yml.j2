@@ -21,8 +21,10 @@ services:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://authentik.{{ public_domain_name }}/application/o/token/"
       GF_AUTH_GENERIC_OAUTH_API_URL: "https://authentik.{{ public_domain_name }}/application/o/userinfo/"
       GF_AUTH_SIGNOUT_REDIRECT_URL: "https://authentik.{{ public_domain_name }}/application/o/grafana/end-session/"
+      # Explicitly allow Basic Auth for API calls:
+      GF_AUTH_BASIC_ENABLED: "true"
       # Optionally enable auto-login (Bypasses Grafana login screen)
-      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+      GF_AUTH_OAUTH_AUTO_LOGIN: "false"
       # Required if Grafana is running behind a reverse proxy
       GF_SERVER_ROOT_URL: "https://grafana.{{ public_domain_name }}"
 volumes:
