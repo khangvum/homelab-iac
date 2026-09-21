@@ -13,7 +13,7 @@
 - Monitoring:
   - Grafana:
       icon: si-grafana-#F46800
-      href: {{ grafana.forward_scheme | default('http') }}://{{ grafana.forward_host }}:{{ grafana.forward_port }}
+      href: https://grafana.{{ public_domain_name }}
       description: Analytics platform for dashboards
       siteMonitor: {{ grafana.forward_scheme | default('http') }}://{{ grafana.forward_host }}:{{ grafana.forward_port }}
       widget:
@@ -26,7 +26,7 @@
 {% if 'containers' in hostvars[host].group_names or host == 'KVM-SRV01' %}
   - Prometheus ({{ hostvars[host].computer_name }}):
       icon: si-prometheus-#E6522C
-      href: {{ prometheus.forward_scheme | default('http') }}://{{ prometheus.forward_host }}:{{ prometheus.forward_port }}
+      href: https://prometheus.{{ public_domain_name }}
       description: {{ 'Linux' if 'containers' in hostvars[host].group_names else 'Windows' }} Node
       siteMonitor: {{ prometheus.forward_scheme | default('http') }}://{{ prometheus.forward_host }}:{{ prometheus.forward_port }}
       widget:
@@ -67,7 +67,7 @@
 - Networking:
   - Nginx Proxy Manager:
       icon: si-nginxproxymanager-#F15833
-      href: {{ npm.forward_scheme | default('http') }}://{{ npm.forward_host }}:{{ npm.forward_port }}
+      href: https://npm.{{ public_domain_name }}
       description: Reverse proxy for host forwarding
       siteMonitor: {{ npm.forward_scheme | default('http') }}://{{ npm.forward_host }}:{{ npm.forward_port }}
       widget:
@@ -90,7 +90,7 @@
 - Management:
   - Nextcloud:
       icon: si-nextcloud-#0082C9
-      href: {{ nextcloud.forward_scheme | default('http') }}://{{ nextcloud.forward_host }}:{{ nextcloud.forward_port }}
+      href: https://nextcloud.{{ public_domain_name }}
       description: Self-hosted cloud storage & collaboration
       siteMonitor: {{ nextcloud.forward_scheme | default('http') }}://{{ nextcloud.forward_host }}:{{ nextcloud.forward_port }}/status.php
       widget:
@@ -101,7 +101,7 @@
 {% for env in portainer_environments %}
   - Portainer ({{ env.name }}):
       icon: si-{{ portainer.name }}-#13BEF9
-      href: "{{ portainer.forward_scheme | default('http') }}://{{ portainer.forward_host }}:{{ portainer.forward_port }}/#!/{{ env.id }}/docker/dashboard"
+      href: "https://portainer.{{ public_domain_name }}/#!/{{ env.id }}/docker/dashboard"
       description: "{{ env.name }} environment"
       siteMonitor: "{{ portainer.forward_scheme | default('http') }}://{{ portainer.forward_host }}:{{ portainer.forward_port }}/#!/{{ env.id }}/docker/dashboard"
       widget:
