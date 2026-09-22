@@ -5,3 +5,4 @@ http:
   trusted_proxies:
     - 127.0.0.1
     - "{{ hostvars['KVM-VPN01'].ansible_host }}"
+    - 172.16.0.0/12 # Private network range for containers
