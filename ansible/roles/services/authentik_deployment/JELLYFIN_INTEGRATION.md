@@ -17,8 +17,6 @@ A comprehensive guide to **_integrating Authentik LDAP_** with a **_Jellyfin_** 
   |   **Base DN**   | `DC=khangvum,DC=lab`                                  |
   | **Certificate** | `authentik Self-signed Certificate`                   |
 
--
-
 ### Application Setup
 
 - Navigate to **Applications** > **Applications** and create a **_New Application_**:
